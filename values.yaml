@@ -1,0 +1,14 @@
+environments:
+  - name: dev
+    namespace: dev
+    valuesPath: "values-dev.yaml"
+  - name: staging
+    namespace: staging
+    valuesPath: "values-staging.yaml"
+  - name: prod
+    namespace: prod
+    valuesPath: "values-prod.yaml"
+
+globalRepo: https://github.com/johnnyjacq16/CICDMultiEnvironmentsWithArgoCDApp-of-Apps-patternHelmChartsPythonApiAppLivelinessDeployment.git
+# This path must point to where the ACTUAL application code chart is
+chartPath: helm/python-api-with-liveliness-probe-helm-chart

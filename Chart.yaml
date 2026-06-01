@@ -1,0 +1,4 @@
+apiVersion: v2
+name: python-api-manager
+description: Parent chart to manage Dev, Staging, and Prod
+version: 1.0.0

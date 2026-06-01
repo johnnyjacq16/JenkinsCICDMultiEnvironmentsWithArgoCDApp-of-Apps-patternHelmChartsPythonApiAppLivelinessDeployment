@@ -1,0 +1,27 @@
+{{- range .Values.environments }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: python-api-{{ .name }}
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: {{ $.Values.globalRepo }}
+    targetRevision: HEAD
+    path: {{ $.Values.chartPath }} # This points to helm/python-api...
+    helm:
+      valueFiles:
+        - values.yaml          # This is the base defaults in the child folder
+        - {{ .valuesPath }}    # This is values-dev.yaml, etc. in the child folder
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .namespace }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+{{- end }}

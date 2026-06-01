@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-python-api # Good practice to use Release Name
+spec:
+  replicas: {{ .Values.pythonApp.replicaCount }}
+  selector:
+    matchLabels:
+      app: python-api-link-service-to-python-app-label
+  template:
+    metadata:
+      labels:
+        app: python-api-link-service-to-python-app-label
+    spec:
+      containers:
+        - name: python-api
+          image: "{{ .Values.pythonApp.image.repository }}:{{ .Values.pythonApp.image.tag }}"
+          imagePullPolicy: {{ .Values.pythonApp.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.pythonApp.containerPort }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.pythonApp.containerPort }}
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.pythonApp.containerPort }}
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            {{- toYaml .Values.pythonApp.resources | nindent 12 }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-cm
+            - secretRef:
+                name: {{ .Release.Name }}-secret
