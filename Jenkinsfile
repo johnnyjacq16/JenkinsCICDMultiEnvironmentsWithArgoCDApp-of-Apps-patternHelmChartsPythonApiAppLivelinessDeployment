@@ -15,7 +15,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/johnnyjacq16/JenkinsCICDMultiEnvironmentsWithArgoCDPythonApiAppLivelinessDeployment.git'
+                url: 'https://github.com/johnnyjacq16/JenkinsCICDMultiEnvironmentsWithArgoCDApp-of-Apps-patternHelmChartsPythonApiAppLivelinessDeployment.git'
             }
         }
 
@@ -64,7 +64,7 @@ pipeline {
                             git config user.name "jenkins"
                             
                             # Update the remote URL to include the credentials
-                            git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/johnnyjacq16/JenkinsCICDWithArgoCDPythonApiAppLivelinessDeployment.git
+                            git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/johnnyjacq16/https://github.com/johnnyjacq16/JenkinsCICDMultiEnvironmentsWithArgoCDApp-of-Apps-patternHelmChartsPythonApiAppLivelinessDeployment.git
             
                             git add ${HELM_CHART_DIRECTORY}/values.yaml
                             git commit -m "Deploy image ${IMAGE_TAG}" || true
