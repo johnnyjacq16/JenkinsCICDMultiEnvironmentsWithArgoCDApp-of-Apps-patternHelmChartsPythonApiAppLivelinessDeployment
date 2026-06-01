@@ -9,6 +9,6 @@ environments:
     namespace: prod
     valuesPath: "values-prod.yaml"
 
-globalRepo: https://github.com/johnnyjacq16/https://github.com/johnnyjacq16/JenkinsCICDMultiEnvironmentsWithArgoCDApp-of-Apps-patternHelmChartsPythonApiAppLivelinessDeployment.git
+globalRepo: https://github.com/johnnyjacq16/JenkinsCICDMultiEnvironmentsWithArgoCDApp-of-Apps-patternHelmChartsPythonApiAppLivelinessDeployment.git
 # This path must point to where the ACTUAL application code chart is
 chartPath: helm/python-api-with-liveliness-probe-helm-chart
