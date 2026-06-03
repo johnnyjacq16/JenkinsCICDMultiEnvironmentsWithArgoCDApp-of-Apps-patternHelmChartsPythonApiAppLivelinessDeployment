@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: aws-load-balancer-controller
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://aws.github.io/eks-charts'
+    chart: aws-load-balancer-controller
+    # Use a fixed, stable version for production
+    targetRevision: 1.7.0 
+    helm:
+      # This block passes values to the Helm chart, just like a values.yaml file
+      values: |
+        clusterName: python-api-cluster
+        serviceAccount:
+          create: true
+          name: aws-load-balancer-controller
+          annotations:
+            # Command to get the arn information below:
+            #                 aws iam get-role --role-name python-api-aws-load-balancer-controller --query "Role.Arn" --output text
+            
+            eks.amazonaws.com/role-arn: arn:aws:iam::522836376191:role/python-api-aws-load-balancer-controller
+            
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

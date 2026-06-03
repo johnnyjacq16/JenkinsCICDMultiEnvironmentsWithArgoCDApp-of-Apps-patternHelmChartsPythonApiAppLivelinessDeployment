@@ -7,7 +7,7 @@ pythonApp:
 redis:
   enabled: true
   persistence:
-    enabled: false  # Dev usually doesn't need persistent storage for Redis
+    enabled: true  # Prod usually doesn't need persistent storage for Redis
 
 # Shared/Global Settings
 ingress:
