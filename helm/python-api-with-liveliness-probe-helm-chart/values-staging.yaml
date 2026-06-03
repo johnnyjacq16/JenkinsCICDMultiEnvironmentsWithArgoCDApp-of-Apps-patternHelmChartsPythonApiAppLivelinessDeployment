@@ -13,6 +13,7 @@ redis:
 ingress:
   enabled: true
   host: staging.api.example.com
+  path: /api  # <-- ADDED THIS LINE
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
