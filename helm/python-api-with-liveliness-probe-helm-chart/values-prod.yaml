@@ -7,12 +7,13 @@ pythonApp:
 redis:
   enabled: true
   persistence:
-    enabled: true  # Prod usually doesn't need persistent storage for Redis
+    enabled: true
 
 # Shared/Global Settings
 ingress:
   enabled: true
   host: prod.api.example.com
+  path: /api  # <-- ADDED THIS LINE
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip

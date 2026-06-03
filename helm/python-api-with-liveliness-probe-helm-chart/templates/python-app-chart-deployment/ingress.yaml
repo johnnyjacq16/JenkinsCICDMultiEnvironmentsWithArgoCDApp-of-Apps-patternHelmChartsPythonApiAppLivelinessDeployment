@@ -8,33 +8,21 @@ metadata:
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    # Use '|' to tell YAML: "Everything indented below this is ONE long string"
-    alb.ingress.kubernetes.io/actions.python-api-link-service-to-ingress: |
-      {
-        "type": "url-rewrite",
-        "urlRewriteConfig": {
-          "rewrites": [
-            {
-              "regex": "^/api/(.*)",
-              "replace": "/$1"
-            }
-          ]
-        }
-      }
 
 spec:
   ingressClassName: alb
 
   rules:
-    - host: {{ .Values.ingress.host }}
+    - host: {{ .Values.ingress.host | quote }}
       http:
         paths:
           - path: {{ .Values.ingress.path }}
-            pathType: ImplementationSpecific
+            pathType: Prefix  # <-- CHANGED TO PREFIX
             backend:
               service:
                 name: python-api-link-service-to-ingress
                 port:
-                  name: use-annotation
+                  number: 80  # <-- CHANGED FROM name: use-annotation TO A NUMERICAL PORT
+                  # Note: Replace 80 with your actual Python API target service port if different
 
 {{- end }}
