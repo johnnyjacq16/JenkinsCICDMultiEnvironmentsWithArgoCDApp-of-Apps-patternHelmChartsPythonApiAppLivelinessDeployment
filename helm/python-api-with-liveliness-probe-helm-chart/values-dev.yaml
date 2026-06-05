@@ -12,7 +12,7 @@ redis:
 # Shared/Global Settings
 ingress:
   enabled: true
-  host: dev.api.example.com
+  host: dev.api.test-domain.local
   path: /api  # <-- ADDED THIS LINE
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
